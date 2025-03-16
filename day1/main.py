@@ -68,7 +68,15 @@ class MyDict:
             if k == key:
                 return v
 
-        return None
+        raise KeyError(f"'{key}' does not exist.")
+
+    def __contains__(self, key):
+        try:
+            _ = self[key]
+            return True
+        except KeyError:
+            return False
+
 
     def __str__(self):
         res = "{ "
@@ -84,9 +92,16 @@ class MyDict:
         return str(self)
 
 d = MyDict()
-d["name"] = "Mini furr"
-d["age"] = 5
-d["name"] = "Black fur"
+d["name"] = None
+d["age"] = None
+d["name"] = None
 print(d["name"])
 print(d["age"])
 print(d)
+
+try:
+    print(d["test"])
+    print("test" in d)
+    print("age" in d)
+except KeyError:
+    print("does not exist in set")
